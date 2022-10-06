@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace LoggingKata
 {
@@ -23,7 +24,7 @@ namespace LoggingKata
                 NullReferenceException e = new NullReferenceException();
                 
                 var TacoLog = new TacoLogger();
-                TacoLog.LogError(":(", e);// Log that and return null
+                TacoLog.LogError("Error: Could not parse", e);// Log that and return null
                                           // Do not fail if one record parsing fails, return null
                 return null;              // TODO Implement
             }
@@ -37,7 +38,7 @@ namespace LoggingKata
 
             var TacoBellNew = new TacoBell()
             {
-                Name = cells[2],
+                Name = cells[2].Split("...").First(),
 
                 Location = new Point()
                 {
@@ -47,6 +48,7 @@ namespace LoggingKata
             };
 
             Console.WriteLine($"{TacoBellNew.Name} {TacoBellNew.Location.Latitude}, {TacoBellNew.Location.Longitude}");
+
 
             // You'll need to create a TacoBell class
             // that conforms to ITrackable

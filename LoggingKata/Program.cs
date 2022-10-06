@@ -22,11 +22,16 @@ namespace LoggingKata
             // Log and error if you get 0 lines and a warning if you get 1 line
             var lines = File.ReadAllLines(csvPath);
 
-            if (lines.Length == 0)
+            if (lines.Length == 0) //Throw error if file is empty
             {
                 Exception e = new Exception();
                 string error = "File is empty";
                 logger.LogFatal(error, e);
+            }
+            if (lines.Length == 1) //Throw warning if file has one line
+            {
+                string warning = "File only has a single line";
+                logger.LogWarning(warning);
             }
 
             logger.LogInfo($"Lines: {lines[0]}");
@@ -36,7 +41,6 @@ namespace LoggingKata
 
             // Grab an IEnumerable of locations using the Select command: var locations = lines.Select(parser.Parse);
             var locations = lines.Select(parser.Parse).ToArray();
-            logger.LogInfo("");
 
             // DON'T FORGET TO LOG YOUR STEPS
 
@@ -81,9 +85,12 @@ namespace LoggingKata
                     }
                 }
             }
+            double distanceMiles = distance / 1000 * 0.6213712;
 
-
-            Console.WriteLine("The Taco Bells furthest away from each other are: ");
+            Console.WriteLine($"\nThe Taco Bells furthest away from each other are: \n" +
+                              $"{FurtherTacoBell1.Name}\n" +
+                              $"{FurtherTacoBell2.Name}\n" +
+                              $"{Math.Round(distanceMiles, 2)} miles apart");
             // Create a new corA Coordinate with your locA's lat and long
 
             // Now, do another loop on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)
@@ -94,9 +101,6 @@ namespace LoggingKata
             // If the distance is greater than the currently saved distance, update the distance and the two `ITrackable` variables you set above
 
             // Once you've looped through everything, you've found the two Taco Bells farthest away from each other.
-
-
-            
         }
     }
 }
