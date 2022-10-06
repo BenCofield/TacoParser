@@ -55,11 +55,35 @@ namespace LoggingKata
             // Do a loop for your locations to grab each location as the origin (perhaps: `locA`)
             
 
-            foreach (var location in locations)
+            foreach (var locA in locations)
             {
-
+                if (locA == null) continue;
+                GeoCoordinate corA = new GeoCoordinate()
+                {
+                    Latitude = locA.Location.Latitude,
+                    Longitude = locA.Location.Longitude,
+                };
+                foreach (var locB in locations)
+                {
+                    if (locB == null) continue;
+                    GeoCoordinate corB = new GeoCoordinate()
+                    {
+                        Latitude = locB.Location.Latitude,
+                        Longitude = locB.Location.Longitude,
+                    };
+                    double temp = corA.GetDistanceTo(corB);
+                    
+                    if (temp > distance)
+                    {
+                        distance = Convert.ToDouble(temp);
+                        FurtherTacoBell1 = locA;
+                        FurtherTacoBell2 = locB;
+                    }
+                }
             }
-            
+
+
+            Console.WriteLine("The Taco Bells furthest away from each other are: ");
             // Create a new corA Coordinate with your locA's lat and long
 
             // Now, do another loop on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)

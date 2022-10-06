@@ -23,7 +23,7 @@ namespace LoggingKata
                 NullReferenceException e = new NullReferenceException();
                 
                 var TacoLog = new TacoLogger();
-                TacoLog.LogError(line, e);// Log that and return null
+                TacoLog.LogError(":(", e);// Log that and return null
                                           // Do not fail if one record parsing fails, return null
                 return null;              // TODO Implement
             }
